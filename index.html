@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <title>iCell Embedded Dashboard</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="iCell">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0d0d12">
+  <style>
+      /* ============================================================
+         LIQUID GLASS DESIGN SYSTEM — iOS 26
+         Complete visual rebuild with organic glassmorphism, 
+         liquid light backdrops, glossy reflection highlights, 
+         and dynamic fluid physics feel from style.html.
+         All class names, IDs, dimensions, layouts remain unchanged.
+         ============================================================ */
+
+      /* ── Design Tokens ── */
+      :root {
+          /* --- Liquid Dark Theme (default) --- */
+          --color-bg: #08070d;
+          --color-bg-elevated: #161522;
+          --color-surface: rgba(255, 255, 255, 0.03);
+          --color-surface-elevated: rgba(255, 255, 255, 0.06);
+          --color-glass: rgba(255, 255, 255, 0.03);
+          --color-glass-strong: rgba(255, 255, 255, 0.08);
+          --color-glass-light: rgba(255, 255, 255, 0.04);
+          
+          /* Liquid borders: highly precise hairline highlights */
+          --color-border: rgba(255, 255, 255, 0.08);
+          --color-border-strong: rgba(255, 255, 255, 0.15);
+          --color-hairline: rgba(255, 255, 255, 0.06);
+          
+          --color-shadow-ambient: rgba(0, 0, 0, 0.4);
+          --color-shadow-float: rgba(0, 0, 0, 0.5);
+          --color-shadow-pop: rgba(0, 0, 0, 0.6);
+          
+          /* Refractive Glossy Highlights */
+          --color-inner-highlight: rgba(255, 255, 255, 0.15);
+          --color-outer-highlight: rgba(255, 255, 255, 0.25);
+          
+          --color-text-primary: #ffffff;
+          --color-text-secondary: rgba(255, 255, 255, 0.7);
+          --color-text-tertiary: rgba(255, 255, 255, 0.45);
+          --color-text-disabled: rgba(255, 255, 255, 0.2);
+          --color-text-inverse: #000000;
+          
+          /* Liquid Jelly Accents */
+          --color-accent: #00d2ff;
+          --color-accent-glow: rgba(0, 210, 255, 0.15);
+          --color-success: #30d158;
+          --color-success-glow: rgba(48, 209, 88, 0.15);
+          --color-warning: #ffb020;
+          --color-warning-glow: rgba(255, 176, 32, 0.15);
+          --color-danger: #ff5252;
+          --color-danger-glow: rgba(255, 82, 82, 0.15);
+          --color-info: #00d2ff;
+          --color-info-glow: rgba(0, 210, 255, 0.15);
+          
+          --color-btn-primary-bg: rgba(0, 210, 255, 0.05);
+          --color-btn-primary-text: #ffffff;
+          --color-btn-secondary-bg: rgba(255, 255, 255, 0.04);
+          --color-btn-secondary-text: rgba(255, 255, 255, 0.95);
+          --color-btn-pressed: rgba(255, 255, 255, 0.15);
+          --color-btn-hover: rgba(255, 255, 255, 0.06);
+          
+          --color-nav-bg: rgba(255, 255, 255, 0.03);
+          --color-card-bg: var(--color-surface);
+          --color-card-border: var(--color-border);
+          
+          /* Liquid Gauges */
+          --color-gauge-ring: rgba(255, 255, 255, 0.08);
+          --color-gauge-well: #08070d;
+          --color-gauge-track: rgba(255, 255, 255, 0.03);
+          --color-gauge-tick: rgba(255, 255, 255, 0.15);
+          --color-gauge-tick-active: var(--color-accent);
+          
+          --color-keycap-bg: rgba(255, 255, 255, 0.03);
+          --color-keycap-sheen: rgba(255, 255, 255, 0.15);
+          --color-keycap-shadow: rgba(0, 0, 0, 0.5);
+          --color-keycap-shadow-strong: rgba(0, 0, 0, 0.7);
+          
+          --color-fan-badge-bg: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.15) 0%, rgba(20, 20, 30, 0.85) 75%);
+          --color-fan-badge-shadow: 0 8px 24px rgba(0,0,0,0.60), inset 0 2px 4px rgba(255,255,255,0.25);
+          --color-token-badge-bg: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.15) 0%, rgba(20, 20, 30, 0.85) 75%);
+          --color-token-badge-shadow: 0 8px 24px rgba(0,0,0,0.60), inset 0 2px 4px rgba(255,255,255,0.25);
+          
+          --color-mosaic-tile-bg: rgba(255, 255, 255, 0.03);
+          --color-mosaic-tile-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+          --color-toast-bg: rgba(20, 20, 30, 0.80);
+          --color-toast-border: rgba(255, 255, 255, 0.20);
+          --color-toast-text: #ffffff;
+          --color-splash-bg: #08070d;
+          --color-splash-logo: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+          
+          /* Soft liquid background orbs from style.html */
+          --color-app-bg-start: rgba(0, 210, 255, 0.08);
+          --color-app-bg-mid: rgba(48, 209, 88, 0.05);
+          --color-app-bg-end: rgba(142, 68, 255, 0.08);
+          --color-app-bg-base: #08070d;
+          
+          --gauge-metal-bg: conic-gradient(from 220deg, #2d2d35, #555560 18%, #1f1f24 32%, #6e6e7d 48%, #1a1a1f 62%, #4d4d5a 78%, #24242c 92%, #2d2d35);
+          --gauge-metal-shadow: 0 20px 40px rgba(0,0,0,0.65), inset 0 2px 5px rgba(255,255,255,0.30), inset 0 -4px 8px rgba(0,0,0,0.80);
+          --gauge-well-shadow: inset 0 6px 15px rgba(0,0,0,0.90), inset 0 -1px 3px rgba(255,255,255,0.08);
+          
+          /* Thick refractive glass blur */
+          --blur-amount: 35px;
+          --radius-premium: 24px;
+          --radius-card: 20px;
+          --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+          --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      /* ── Liquid Light Theme ── */
+      .light-theme {
+          --color-bg: #eef1f6;
+          --color-bg-elevated: #ffffff;
+          --color-surface: rgba(255, 255, 255, 0.35);
+          --color-surface-elevated: rgba(255, 255, 255, 0.65);
+          --color-glass: rgba(255, 255, 255, 0.40);
+          --color-glass-strong: rgba(255, 255, 255, 0.80);
+          --color-glass-light: rgba(255, 255, 255, 0.60);
+          
+          --color-border: rgba(255, 255, 255, 0.50);
+          --color-border-strong: rgba(255, 255, 255, 0.70);
+          --color-hairline: rgba(255, 255, 255, 0.40);
+          
+          --color-shadow-ambient: rgba(31, 38, 135, 0.08);
+          --color-shadow-float: rgba(31, 38, 135, 0.15);
+          --color-shadow-pop: rgba(31, 38, 135, 0.22);
+          
+          --color-inner-highlight: rgba(255, 255, 255, 0.80);
+          --color-outer-highlight: rgba(255, 255, 255, 0.50);
+          
+          --color-text-primary: #1d1d2f;
+          --color-text-secondary: #62627a;
+          --color-text-tertiary: #8e8eab;
+          --color-text-disabled: #b6b6cd;
+          --color-text-inverse: #ffffff;
+          
+          --color-accent: #007aff;
+          --color-accent-glow: rgba(0, 122, 255, 0.30);
+          --color-success: #24b248;
+          --color-success-glow: rgba(36, 178, 72, 0.30);
+          --color-warning: #e07b00;
+          --color-warning-glow: rgba(224, 123, 0, 0.30);
+          --color-danger: #e63946;
+          --color-danger-glow: rgba(230, 57, 70, 0.30);
+          --color-info: #00b4d8;
+          --color-info-glow: rgba(0, 180, 216, 0.30);
+          
+          --color-btn-primary-bg: rgba(0, 122, 255, 0.20);
+          --color-btn-primary-text: #007aff;
+          --color-btn-secondary-bg: rgba(0, 122, 255, 0.08);
+          --color-btn-secondary-text: #007aff;
+          
+          --color-nav-bg: rgba(240, 243, 248, 0.50);
+          --color-card-bg: var(--color-surface);
+          --color-card-border: var(--color-border);
+          
+          --color-gauge-ring: rgba(0, 0, 0, 0.04);
+          --color-gauge-well: #ffffff;
+          --color-gauge-track: rgba(0, 0, 0, 0.04);
+          --color-gauge-tick: rgba(0, 0, 0, 0.12);
+          --color-gauge-tick-active: var(--color-accent);
+          
+          --color-keycap-bg: rgba(255, 255, 255, 0.50);
+          --color-keycap-sheen: rgba(255, 255, 255, 0.70);
+          --color-keycap-shadow: rgba(0, 0, 0, 0.06);
+          --color-keycap-shadow-strong: rgba(0, 0, 0, 0.12);
+          
+          --color-fan-badge-bg: radial-gradient(circle at 35% 30%, #ffffff 0%, #cfd7e6 85%);
+          --color-fan-badge-shadow: 0 8px 20px rgba(0,0,0,0.06), inset 0 2px 4px #ffffff;
+          --color-token-badge-bg: radial-gradient(circle at 35% 30%, #ffffff 0%, #cfd7e6 85%);
+          --color-token-badge-shadow: 0 8px 20px rgba(0,0,0,0.06), inset 0 2px 4px #ffffff;
+          
+          --color-mosaic-tile-bg: rgba(255, 255, 255, 0.45);
+          --color-mosaic-tile-shadow: 0 12px 36px rgba(31, 38, 135, 0.06);
+          --color-toast-bg: rgba(255, 255, 255, 0.85);
+          --color-toast-border: rgba(255, 255, 255, 0.60);
+          --color-toast-text: #1d1d2f;
+          --color-splash-bg: #eef1f6;
+          --color-splash-logo: linear-gradient(180deg, #1d1d2f 0%, #62627a 100%);
+          
+          --color-app-bg-start: rgba(0, 122, 255, 0.12);
+          --color-app-bg-mid: rgba(0, 240, 255, 0.06);
+          --color-app-bg-end: rgba(142, 68, 255, 0.08);
+          --color-app-bg-base: #eef1f6;
+          
+          --gauge-metal-bg: conic-gradient(from 220deg, #cfd3de, #ffffff 18%, #a0a6b5 32%, #ffffff 48%, #8f96a6 62%, #eef1f6 78%, #bdc3cf 92%, #cfd3de);
+          --gauge-metal-shadow: 0 14px 28px rgba(0,0,0,0.08), inset 0 2px 5px #ffffff, inset 0 -3px 6px rgba(0,0,0,0.06);
+          --gauge-well-shadow: inset 0 4px 12px rgba(0,0,0,0.05), inset 0 -1px 3px rgba(255,255,255,0.80);
+      }
+
+      /* ── Base ── */
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          -webkit-tap-highlight-color: transparent;
+          -webkit-font-smoothing: antialiased;
+      }
+
+      html, body {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: var(--color-bg);
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          color: var(--color-text-primary);
+      }
+      body { display: flex; justify-content: center; align-items: center; }
+
+      .app-shell {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          height: 100dvh;
+          height: calc(var(--app-height, 100dvh));
+          max-width: 440px;
+          display: flex;
+          flex-direction: column;
+          background: radial-gradient(circle at 50% 30%, var(--color-app-bg-start) 0%, transparent 70%),
+                      radial-gradient(circle at 80% 85%, var(--color-app-bg-mid) 0%, transparent 70%),
+                      var(--color-app-bg-base);
+          background-size: 100% 100%;
+      }
+      @media (min-width: 480px) {
+          .app-shell {
+              height: 92vh; max-height: 850px;
+              border-radius: 40px;
+              border: 1px solid var(--color-border-strong);
+              box-shadow: 0 35px 70px -15px var(--color-shadow-pop);
+          }
+      }
+
+      .page-container {
+          flex: 1; overflow-y: auto; overflow-x: hidden;
+          padding: calc(env(safe-area-inset-top, 0px) + 8px) 20px calc(env(safe-area-inset-bottom, 0px) + 90px) 20px;
+          scroll-behavior: smooth;
+      }
+      .page-container::-webkit-scrollbar { width: 0px; background: transparent; }
+
+      .page-view {
+          display: none; opacity: 0; transform: translateY(16px) scale(0.97);
+          transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth);
+      }
+      .page-view.active-view { display: block; opacity: 1; transform: translateY(0) scale(1); }
+
+      /* ── Glass Cards ── */
+      .card {
+          position: relative;
+          background: var(--color-card-bg);
+          backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          border: 1px solid var(--color-card-border);
+          border-radius: var(--radius-premium);
+          padding: 22px; margin-bottom: 16px;
+          box-shadow: 
+              0 4px 30px var(--color-shadow-ambient),
+              inset 0 1px 0 var(--color-inner-highlight),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+          overflow: hidden;
+          transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease-smooth);
+          background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 60%);
+      }
+      /* Highly-defined Liquid Specular Reflection on top curve */
+      .card::before {
+          content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+          background: linear-gradient(90deg, transparent, var(--color-outer-highlight) 35%, var(--color-outer-highlight) 65%, transparent);
+          pointer-events: none;
+          opacity: 0.9;
+      }
+
+      /* ── Mode Selection Mosaic ── */
+      #mode-selection-view, #monitoring-view { display: none; }
+      #mode-selection-view.active-subview, #monitoring-view.active-subview { display: block; }
+
+      .icell-mosaic-title {
+          font-size: 2.8rem; font-weight: 800; text-align: center; letter-spacing: -0.04em;
+          margin: 10px 0 24px 0;
+          background: var(--color-splash-logo);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0px 3px 6px var(--color-shadow-ambient));
+      }
+
+      .mosaic-grid {
+          display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+      }
+      .mosaic-tile {
+          position: relative;
+          background: var(--color-mosaic-tile-bg);
+          border: 1px solid var(--color-border);
+          border-radius: 20px;
+          backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          padding: 22px 10px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+          color: var(--color-text-primary);
+          font-size: 0.82rem; font-weight: 600; text-align: center; line-height: 1.3;
+          box-shadow: 
+              0 4px 30px var(--color-shadow-ambient),
+              inset 0 1px 0 var(--color-inner-highlight),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+          cursor: pointer; font-family: inherit;
+          transition: transform 0.2s var(--ease-spring), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+          background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 60%);
+      }
+      .mosaic-tile:hover {
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.15);
+      }
+      .mosaic-tile:active { transform: scale(0.93) translateY(2px); }
+      .mosaic-tile::before {
+          content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
+          background: linear-gradient(90deg, transparent, var(--color-outer-highlight) 50%, transparent);
+          pointer-events: none;
+      }
+      .mosaic-icon {
+          width: 60px; height: 60px; object-fit: contain;
+          filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+          transition: transform 0.3s var(--ease-spring);
+      }
+      .mosaic-tile:hover .mosaic-icon { transform: scale(1.1) rotate(2deg); }
+      .mosaic-icon:not([src]), .mosaic-icon[src=""] {
+          background: var(--color-glass-light); border-radius: 50%;
+      }
+
+      .btn-back-icon { width: 16px; height: 16px; margin-right: 4px; vertical-align: -3px; }
+
+      .dashboard-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; text-align: center; }
+
+      .kit-title {
+          font-size: clamp(2.0rem, 6vw, 2.5rem); font-weight: 800; letter-spacing: -0.04em; margin: 10px 0;
+          background: linear-gradient(180deg, var(--color-text-primary) 15%, var(--color-text-secondary) 65%, var(--color-text-tertiary) 100%);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0px 3px 6px var(--color-shadow-ambient));
+      }
+
+      .status-pill-group { display: flex; gap: 8px; margin-top: 4px; justify-content: center; }
+
+      .settings-row {
+          display: flex; align-items: center; justify-content: space-between;
+          margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--color-border);
+      }
+      .settings-row-label { font-size: 0.95rem; color: var(--color-text-primary); font-weight: 500; }
+
+      /* ── Liquid iOS-style sliding switch ── */
+      .ios-switch {
+          position: relative; width: 51px; height: 31px; border-radius: 16px;
+          background: rgba(120, 120, 128, 0.24); border: 1px solid var(--color-border); padding: 0; cursor: pointer;
+          transition: background-color 0.25s ease, border-color 0.25s ease; flex-shrink: 0;
+          box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+      }
+      .ios-switch-knob {
+          position: absolute; top: 1px; left: 1px; width: 27px; height: 27px; border-radius: 50%;
+          background: #ffffff; 
+          box-shadow: 
+              0 3px 8px rgba(0,0,0,0.20), 
+              0 1px 2px rgba(0,0,0,0.10),
+              inset 0 1px 0 rgba(255,255,255,0.60);
+          transition: transform 0.25s var(--ease-smooth), width 0.25s ease;
+      }
+      .ios-switch.on { background: var(--color-success); border-color: rgba(52, 224, 101, 0.3); }
+      .ios-switch.on .ios-switch-knob { transform: translateX(20px); }
+      .ios-switch:active .ios-switch-knob { width: 31px; }
+      .ios-switch.on:active .ios-switch-knob { transform: translateX(16px); width: 31px; }
+
+      /* ── Status Pill ── */
+      .status-pill {
+          display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px;
+          background: var(--color-glass); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+          padding: 4px 12px; border-radius: 10px; font-size: 0.75rem;
+          color: var(--color-text-secondary);
+          border: 1px solid var(--color-border);
+          transition: all 0.4s var(--ease-smooth);
+          width: 145px; max-width: 145px; min-width: 145px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05), inset 0 1px 0 var(--color-inner-highlight);
+      }
+      .status-pill svg { color: var(--color-text-secondary); filter: drop-shadow(0 0 0px transparent); transition: all 0.4s ease; flex-shrink: 0; }
+      .status-pill span:last-child { overflow: hidden; text-overflow: clip; white-space: nowrap; }
+
+      .status-pill.highlighted {
+          border-color: var(--color-success-glow);
+          background: rgba(52, 220, 101, 0.12);
+          color: var(--color-text-primary);
+          box-shadow: 0 2px 10px rgba(52, 220, 101, 0.10), inset 0 1px 0 var(--color-inner-highlight);
+      }
+      .status-pill.highlighted svg {
+          color: var(--color-success);
+          filter: drop-shadow(0 0 5px var(--color-success-glow));
+      }
+
+      /* ── Liquid Gauge ── */
+      .gauge-card { display: flex; justify-content: center; align-items: center; padding: 30px; }
+      .gauge-wrapper {
+          position: relative; width: 100%; max-width: 230px; aspect-ratio: 1 / 1;
+          display: grid; grid-template-areas: "canvas"; place-items: center;
+      }
+      /* Machined metal ring — brushed-aluminum bezel with deep glossy refraction */
+      .gauge-wrapper::before {
+          content: ""; position: absolute; inset: -16px; border-radius: 50%; z-index: 0;
+          background: var(--gauge-metal-bg);
+          box-shadow: var(--gauge-metal-shadow);
+      }
+      /* Glass Face Recessed well the dial face sits inside */
+      .gauge-wrapper::after {
+          content: ""; position: absolute; inset: -3px; border-radius: 50%; z-index: 1;
+          background: var(--color-gauge-well);
+          box-shadow: var(--gauge-well-shadow);
+      }
+
+      .radial-gauge-svg { grid-area: canvas; width: 100%; height: 100%; transform: scaleX(-1) rotate(-90deg); z-index: 2; position: relative; }
+      .gauge-track { fill: none; stroke: var(--color-gauge-track); stroke-width: 7; }
+      .gauge-fill {
+          fill: none; stroke: url(#gauge-grad); stroke-width: 7; stroke-linecap: round;
+          stroke-dasharray: 478; stroke-dashoffset: 478; transition: stroke-dashoffset 0.3s linear;
+          filter: drop-shadow(0 0 4px var(--color-accent-glow));
+      }
+
+      .svg-tick-group { transform: scaleX(-1) rotate(90deg); transform-origin: 100px 100px; }
+      .tick-line {
+          stroke: var(--color-gauge-tick); stroke-width: 1.5; stroke-linecap: round;
+          transition: stroke 0.15s, filter 0.15s, opacity 0.9s ease-out;
+      }
+      .tick-line.active {
+          stroke: var(--color-gauge-tick-active);
+          filter: drop-shadow(0px 0px 4px var(--color-accent-glow));
+          stroke-width: 2.5;
+      }
+      .tick-line.trailing {
+          stroke: var(--color-gauge-tick-active);
+          transition: none;
+      }
+
+      .gauge-center { position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3; }
+      .gauge-time { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: var(--color-text-primary); }
+      .gauge-sub { font-size: 0.8rem; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+      .kit-title-tappable { cursor: pointer; transition: opacity 0.15s ease; }
+      .kit-title-tappable:active { opacity: 0.6; }
+
+      /* ── Kit status row — equal width & height matching metric cards ── */
+      .kit-status-row {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 16px;
+          align-items: stretch;
+      }
+      .kit-status-row > * {
+          flex: 1 1 0; /* equal width */
+          min-height: 102px; /* match .metric-card min-height */
+      }
+
+      .active-kit-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          padding: 18px 16px; /* match metric card padding */
+          min-height: 102px; /* fallback, but parent already sets */
+      }
+
+      .active-kit-icon { 
+          width: 52px; height: 52px; object-fit: contain; 
+          filter: drop-shadow(0 4px 10px rgba(0,0,0,0.30)); 
+      }
+      .active-kit-icon:not([src]), .active-kit-icon[src=""] { background: var(--color-glass-light); border-radius: 50%; }
+
+      .activity-icon-wrap {
+          width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+          color: var(--color-text-tertiary); transition: color 0.4s ease;
+      }
+      .activity-icon-wrap svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: filter 0.4s ease; }
+      .activity-icon-wrap .motor-vector-group { transform-origin: 12px 12px; }
+      .activity-icon-wrap.active { color: var(--color-accent); }
+      .activity-icon-wrap.active svg { filter: drop-shadow(0 0 10px var(--color-accent-glow)); }
+      .activity-icon-wrap.active .motor-vector-group { animation: spin 1s linear infinite; }
+      .activity-icon-wrap.active.pulse svg { animation: pulse 1.5s ease infinite; }
+
+      /* ── Glass Status Button ── */
+      .status-button {
+          flex: 1 1 0; /* equal width with sibling */
+          min-height: 102px; /* match parent */
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--color-glass);
+          backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(220%);
+          border: 1px solid var(--color-border);
+          border-radius: var(--radius-premium);
+          color: var(--color-text-secondary);
+          box-shadow: 
+              0 4px 30px var(--color-shadow-ambient),
+              inset 0 1px 0 var(--color-inner-highlight),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+          transition: all 0.4s var(--ease-smooth);
+          padding: 0 16px; /* match metric padding horizontally */
+          background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 60%);
+      }
+      .status-button:hover {
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.15);
+      }
+      .status-button:active { transform: scale(0.94); }
+      .status-button svg { width: 38px; height: 38px; }
+      .status-button.running {
+          color: var(--color-success);
+          background: rgba(48, 209, 88, 0.05);
+          border-color: rgba(48, 209, 88, 0.15);
+          box-shadow: 
+              0 12px 36px var(--color-shadow-ambient), 
+              0 0 20px rgba(48, 209, 88, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+      .status-button.running svg { filter: drop-shadow(0 0 10px var(--color-success-glow)); animation: statusPulse 2s ease infinite; }
+      @keyframes statusPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+      /* ── Output Nodes ── */
+      .output-node {
+          position: relative;
+          --glow-color: transparent;
+          background: linear-gradient(180deg, var(--color-keycap-sheen), transparent 50%), var(--color-keycap-bg);
+          border: 1px solid var(--color-border);
+          border-radius: 16px;
+          padding: 12px 4px; display: flex; flex-direction: column; align-items: center; gap: 8px;
+          color: var(--color-text-secondary); font-size: 0.72rem; font-weight: 600;
+          box-shadow:
+              0 4px 0 var(--color-keycap-shadow),
+              0 8px 14px var(--color-shadow-ambient),
+              inset 0 1px 0 var(--color-inner-highlight);
+          transition: color 0.3s ease, border-color 0.3s ease, text-shadow 0.3s ease,
+                      box-shadow 0.18s var(--ease-smooth), transform 0.18s var(--ease-smooth);
+      }
+      .output-node:active { transform: translateY(3px) scale(0.97); box-shadow: inset 0 3px 5px var(--color-keycap-shadow-strong); }
+      .output-node svg { position: relative; z-index: 1; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: filter 0.3s ease; }
+
+      .output-node .motor-vector-group { transform-origin: 12px 12px; }
+
+      .output-node.active-m1, .output-node.active-m2, .output-node.active-led, .output-node.active-heat {
+          transform: translateY(4px);
+          box-shadow:
+              inset 0 4px 6px var(--color-keycap-shadow-strong),
+              inset 0 1px 0 var(--color-inner-highlight),
+              0 10px 20px -6px var(--glow-color);
+          text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      .output-node.active-m1 { color: #ffb020; --glow-color: rgba(255,176,32,0.75); }
+      .output-node.active-m1 svg { filter: drop-shadow(0 0 6px rgba(255,176,32,0.85)); }
+      .output-node.active-m1 .motor-vector-group { animation: spin 1.5s linear infinite; }
+
+      .output-node.active-m2 { color: #00f0ff; --glow-color: rgba(0,240,255,0.75); }
+      .output-node.active-m2 svg { filter: drop-shadow(0 0 6px rgba(0,240,255,0.85)); }
+      .output-node.active-m2 .motor-vector-group { animation: spin 0.4s linear infinite; }
+
+      .output-node.active-led { color: #ff5252; --glow-color: rgba(255,82,82,0.8); }
+      .output-node.active-led svg { filter: drop-shadow(0 0 7px rgba(255,82,82,0.95)); transform: scale(1.05); }
+
+      .output-node.active-heat { color: #ff2d55; --glow-color: rgba(255,45,85,0.8); }
+      .output-node.active-heat svg { animation: pulse 1.5s ease infinite; filter: drop-shadow(0 0 6px rgba(255,45,85,0.85)); }
+
+      /* ── Metrics ── */
+      .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .metric-card { position: relative; padding: 18px 16px; display: flex; flex-direction: column; justify-content: space-between; min-height: 102px; }
+      .metric-label { font-size: 0.82rem; color: var(--color-text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+      .metric-value-wrapper { display: flex; align-items: baseline; gap: 2px; margin-top: 8px; }
+      .metric-value { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--color-text-primary); }
+      .metric-value.metric-loading {
+          background: linear-gradient(90deg, var(--color-text-tertiary) 25%, var(--color-text-primary) 50%, var(--color-text-tertiary) 75%);
+          background-size: 200% 100%;
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+          animation: shimmer 2s ease-in-out infinite;
+      }
+      @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+      .metric-unit { font-size: 0.85rem; color: var(--color-text-secondary); margin-left: 2px; }
+
+      /* ── Refractive Fan Badge ── */
+      .fan-badge {
+          position: absolute; top: 50%; right: 14px; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: var(--color-fan-badge-bg);
+          box-shadow: var(--color-fan-badge-shadow);
+          color: var(--color-text-secondary);
+          transition: all 0.4s ease;
+      }
+      .fan-badge::before {
+          content: ""; position: absolute; inset: 1px; border-radius: 50%;
+          border: 1px solid var(--color-border);
+          pointer-events: none;
+      }
+      .fan-blades {
+          width: 26px; height: 26px; position: relative; z-index: 1;
+          fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+          transition: filter 0.4s ease;
+      }
+      .fan-badge.spinning { color: var(--color-accent); }
+      .fan-badge.spinning .fan-blades { animation: spin 0.4s linear infinite; filter: drop-shadow(0 0 6px var(--color-accent-glow)); }
+
+      /* ── Glass Token Lock Badge ── */
+      .token-lock-badge {
+          position: absolute; top: 50%; right: 14px; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: var(--color-token-badge-bg);
+          box-shadow: var(--color-token-badge-shadow);
+          color: var(--color-text-secondary);
+          transition: all 0.4s ease;
+      }
+      .token-lock-badge::before {
+          content: ""; position: absolute; inset: 1px; border-radius: 50%;
+          border: 1px solid var(--color-border);
+          pointer-events: none;
+      }
+      #token-lock-icon {
+          width: 26px; height: 26px; position: relative; z-index: 1;
+          stroke: currentColor; transition: color 0.4s ease, filter 0.4s ease;
+      }
+      #token-lock-shackle {
+          transform-origin: 8px 11px;
+          transition: transform 0.4s var(--ease-spring);
+      }
+      .token-lock-badge.unlocked {
+          color: var(--color-success);
+          box-shadow: var(--color-token-badge-shadow), 0 0 20px rgba(52, 224, 101, 0.20);
+      }
+      .token-lock-badge.unlocked #token-lock-icon { filter: drop-shadow(0 0 6px var(--color-success-glow)); }
+      .token-lock-badge.unlocked #token-lock-shackle { transform: translateX(3px) rotate(-25deg); }
+      .token-lock-badge.locked { color: var(--color-danger); }
+      .token-lock-badge.locked #token-lock-icon { filter: drop-shadow(0 0 6px var(--color-danger-glow)); }
+      .token-lock-badge.locked #token-lock-shackle { transform: none; }
+
+      /* ── Info Tab ── */
+      .info-header-block { text-align: center; margin-bottom: 28px; padding-top: 10px; }
+      .info-main-title {
+          font-size: 2.6rem; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 2px;
+          background: var(--color-splash-logo);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0px 3px 6px var(--color-shadow-ambient));
+      }
+      .info-subtitle { font-size: 0.95rem; color: var(--color-text-secondary); font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+      .section-divider-title { font-size: 0.78rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.08em; margin: 12px 0 10px 4px; }
+
+      .info-list { list-style: none; }
+      .info-list li { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 0.92rem; }
+      .info-list li:last-child { border-bottom: none; }
+
+      .label-with-icon { display: flex; align-items: center; gap: 10px; color: var(--color-text-secondary); font-weight: 500; }
+      .label-with-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--color-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.95; }
+      .info-list strong { font-weight: 500; color: var(--color-text-primary); }
+
+      .btn-inline-action {
+          background: var(--color-btn-secondary-bg);
+          color: var(--color-btn-secondary-text);
+          border: 1px solid var(--color-border-strong);
+          padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
+          transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.15s var(--ease-smooth);
+      }
+      .btn-inline-action:active { background: var(--color-accent); color: #fff; transform: scale(0.96); }
+      .address-text { font-size: 0.88rem; text-align: right; line-height: 1.4; max-width: 65%; color: var(--color-text-primary); font-weight: 500; }
+
+      /* ── Bottom Navigation ── */
+      .bottom-nav {
+          position: absolute; bottom: 0; left: 0; width: 100%; height: calc(env(safe-area-inset-bottom, 0px) + 72px);
+          background: var(--color-nav-bg);
+          backdrop-filter: blur(40px) saturate(200%);
+          -webkit-backdrop-filter: blur(40px) saturate(200%);
+          border-top: 1px solid var(--color-border);
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          padding: 8px;
+          padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); z-index: 900;
+          box-shadow: 0 -8px 32px rgba(0,0,0,0.20);
+      }
+      @media (min-width: 480px) { .bottom-nav { border-bottom-left-radius: 34px; border-bottom-right-radius: 34px; } }
+
+      /* Liquid Fluid Sliding Indicator Pill */
+      .liquid-pill {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          height: calc(100% - 16px - env(safe-area-inset-bottom, 0px));
+          background: rgba(255, 255, 255, 0.13);
+          backdrop-filter: blur(15px) saturate(160%);
+          -webkit-backdrop-filter: blur(15px) saturate(160%);
+          border-radius: 20px;
+          border: 1.5px solid rgba(255, 255, 255, 0.25);
+          box-shadow: 
+              0 8px 20px rgba(0, 0, 0, 0.25),
+              inset 0 1px 2px rgba(255, 255, 255, 0.4),
+              inset 0 -1px 4px rgba(0, 0, 0, 0.15);
+          z-index: 1;
+          pointer-events: none;
+          transition: 
+              transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
+              width 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .nav-item {
+          position: relative;
+          background: none; border: none; color: var(--color-text-secondary);
+          display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px;
+          cursor: pointer; transition: transform 0.2s var(--ease-smooth), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+          font-family: inherit;
+          z-index: 2;
+          user-select: none;
+      }
+      .nav-item:active .apple-icon, .nav-item:active svg {
+          transform: scale(0.85, 1.1); /* horizontal squeeze, vertical stretch from style.html */
+      }
+      .nav-item svg { width: 22px; height: 22px; opacity: 0.55; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+      .nav-item span { font-size: 0.68rem; font-weight: 600; }
+      .nav-item.active { color: var(--color-text-primary); }
+      .nav-item.active svg { opacity: 1; color: #ffffff; filter: drop-shadow(0 0 2px rgba(255,255,255,0.4)); }
+      
+      .nav-item:hover svg {
+          transform: translateY(-2px);
+          opacity: 0.9;
+      }
+
+      /* ── Keyframes ── */
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      @keyframes pulse { 0% { opacity: 0.6; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); } 100% { opacity: 0.6; transform: scale(0.95); } }
+
+      /* ── Liquid Toast ── */
+      .toast-container { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 20px); left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 400px; z-index: 9999; pointer-events: none; }
+      .toast {
+          background: var(--color-toast-bg);
+          border: 1px solid var(--color-toast-border);
+          backdrop-filter: blur(24px) saturate(180%);
+          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          padding: 14px 20px;
+          border-radius: 18px;
+          font-size: 0.88rem;
+          box-shadow: 
+              0 24px 50px var(--color-shadow-pop), 
+              inset 0 1px 0 var(--color-inner-highlight);
+          color: var(--color-toast-text);
+          text-align: center;
+          font-weight: 500;
+          letter-spacing: -0.01em;
+          transform: translateY(-24px) scale(0.90);
+          opacity: 0;
+          transition: transform 0.6s var(--ease-smooth), opacity 0.6s var(--ease-smooth);
+      }
+      .toast.show { transform: translateY(0) scale(1); opacity: 1; }
+
+      .confirm-toast { pointer-events: auto; padding: 18px 20px 16px; }
+      .confirm-toast-msg { font-size: 0.95rem; font-weight: 600; margin-bottom: 14px; }
+      .confirm-toast-buttons { display: flex; gap: 10px; }
+      .confirm-toast-btn {
+          flex: 1; padding: 11px; border-radius: 12px; border: none; cursor: pointer;
+          font-size: 0.88rem; font-weight: 600; font-family: inherit;
+          transition: transform 0.15s var(--ease-smooth), opacity 0.15s ease;
+      }
+      .confirm-toast-btn:active { transform: scale(0.95); opacity: 0.85; }
+      .confirm-toast-cancel {
+          background: var(--color-glass-light);
+          color: var(--color-text-primary);
+          border: 1px solid var(--color-border);
+      }
+      .confirm-toast-ok { background: var(--color-danger); color: #fff; border: none; }
+
+      /* ── Splash ── */
+      .splash-screen {
+          position: fixed; top:0; left:0; width:100%; height:100%;
+          background: var(--color-splash-bg);
+          z-index: 99999; display: flex; justify-content: center; align-items: center;
+          transition: opacity 0.5s var(--ease-smooth);
+      }
+      .splash-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+      .splash-logo {
+          font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em;
+          background: var(--color-splash-logo);
+          -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .spinner {
+          width: 30px; height: 30px;
+          border: 2px solid var(--color-border);
+          border-top: 2px solid var(--color-accent);
+          border-radius: 50%;
+          animation: spin 0.7s linear infinite;
+      }
+
+      /* ── Gradient definition for gauge ── */
+      #gauge-grad stop:first-child { stop-color: var(--color-accent); }
+      #gauge-grad stop:last-child { stop-color: var(--color-info); }
+  </style>
+</head>
+<body>
+  <div id="splash-screen" class="splash-screen">
+      <div class="splash-content"><div class="splash-logo">iCell</div><div class="spinner"></div></div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="app-shell">
+      <main class="page-container" id="page-container">
+
+          <section id="tab-main" class="page-view active-view">
+
+              <!-- ============ MODE SELECTION (mosaic) ============
+                   Shown whenever the ESP32 isn't in one of the 6 kit
+                   pages -- i.e. nothing is selected/running yet. -->
+              <div id="mode-selection-view">
+                  <h1 class="icell-mosaic-title">iCell</h1>
+                  <div class="mosaic-grid">
+                      <button class="mosaic-tile" data-page="2" type="button">
+                          <img class="mosaic-icon" data-icon-key="hairKit" alt="">
+                          <span>iCell Hair Kit</span>
+                      </button>
+                      <button class="mosaic-tile" data-page="3" type="button">
+                          <img class="mosaic-icon" data-icon-key="fatKit" alt="">
+                          <span>iCell Fat Kit</span>
+                      </button>
+                      <button class="mosaic-tile" data-page="4" type="button">
+                          <img class="mosaic-icon" data-icon-key="homoKit" alt="">
+                          <span>iCell Homogenize Kit</span>
+                      </button>
+                      <button class="mosaic-tile" data-page="6" type="button">
+                          <img class="mosaic-icon" data-icon-key="photoL" alt="">
+                          <span>iCell Photo Active 1</span>
+                      </button>
+                      <button class="mosaic-tile" data-page="7" type="button">
+                          <img class="mosaic-icon" data-icon-key="photoM" alt="">
+                          <span>iCell Photo Active 2</span>
+                      </button>
+                      <button class="mosaic-tile" data-page="8" type="button">
+                          <img class="mosaic-icon" data-icon-key="biofiller" alt="">
+                          <span>iCell Bio Filler Kit</span>
+                      </button>
+                  </div>
+              </div>
+
+              <!-- ============ MONITORING (existing dashboard) ============ -->
+              <div id="monitoring-view">
+
+                  <div class="dashboard-header">
+                      <h1 class="kit-title kit-title-tappable" id="lbl-kit-title">Not Selected</h1>
+                      <div class="status-pill-group">
+                          <div class="status-pill wifi-pill" id="pill-wifi">
+                              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+                              <span class="pill-dot"></span>
+                              <span id="txt-wifi">Offline</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="gauge-card card">
+                      <div class="gauge-wrapper">
+                          <svg class="radial-gauge-svg" id="main-gauge-canvas" viewBox="0 0 200 200">
+                              <defs>
+                                  <linearGradient id="gauge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                      <stop offset="0%" stop-color="#30a2ff" />
+                                      <stop offset="100%" stop-color="#00f0ff" />
+                                  </linearGradient>
+                              </defs>
+                              <circle class="gauge-track" cx="100" cy="100" r="76" />
+                              <circle class="gauge-fill" id="gauge-progress" cx="100" cy="100" r="76" />
+                              <g class="svg-tick-group" id="svg-tick-container"></g>
+                          </svg>
+                          <div class="gauge-center"><span class="gauge-time" id="lbl-time">00:00</span><span class="gauge-sub">Remaining</span></div>
+                      </div>
+                  </div>
+
+                  <div class="kit-status-row">
+                      <div class="active-kit-box card" id="active-kit-box">
+                          <img class="active-kit-icon" id="active-kit-icon" alt="">
+                          <div class="activity-icon-wrap" id="activity-icon-wrap"></div>
+                      </div>
+                      <button class="status-button" id="btn-status" type="button">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M12 2v10"></path>
+                              <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                          </svg>
+                      </button>
+                  </div>
+
+                  <div class="metrics-grid">
+                      <div class="card metric-card">
+                          <span class="metric-label">Temp</span>
+                          <div class="fan-badge" id="fan-element">
+                              <svg class="fan-blades" viewBox="0 0 24 24">
+                                  <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                                  <path d="M12,12 C12,8 15,6 15,4 C15,2 13,2 12,4 C11,6 12,8 12,12 Z" fill="currentColor"></path>
+                                  <path d="M12,12 C16,12 18,15 20,15 C22,15 22,13 20,12 C18,11 16,12 12,12 Z" fill="currentColor"></path>
+                                  <path d="M12,12 C12,16 9,18 9,20 C9,22 11,22 12,20 C13,18 12,16 12,12 Z" fill="currentColor"></path>
+                                  <path d="M12,12 C8,12 6,9 4,9 C2,9 2,11 4,12 C6,13 8,12 12,12 Z" fill="currentColor"></path>
+                              </svg>
+                          </div>
+                          <div class="metric-value-wrapper"><span class="metric-value" id="lbl-temp">--</span><span class="metric-unit">°C</span></div>
+                      </div>
+
+                      <div class="card metric-card">
+                          <span class="metric-label">Kit Remain</span>
+                          <div class="token-lock-badge" id="token-lock-badge">
+                              <svg id="token-lock-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <rect id="token-lock-body" x="4" y="11" width="16" height="10" rx="2"></rect>
+                                  <path id="token-lock-shackle" d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+                              </svg>
+                          </div>
+                          <div class="metric-value-wrapper"><span class="metric-value" id="lbl-tokens">--</span><span class="metric-unit">min</span></div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+          <section id="tab-info" class="page-view">
+              <div class="info-header-block">
+                  <h2 class="info-main-title">iCell</h2>
+                  <p class="info-subtitle">Advanced Stem Cell Technology</p>
+              </div>
+
+              <div class="section-divider-title">Device Info</div>
+              <div class="card" style="padding:10px 20px;">
+                  <ul class="info-list">
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="4"></line><line x1="8" y1="2" x2="8" y2="4"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Serial Number</div><strong id="info-sn">ESP32-94F7-A2</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>Series</div><strong>Alpha-IV</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>Firmware</div><strong>v2.6.1-LFS</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>Network SSID</div><strong id="info-ssid">iCell</strong></li>
+                  </ul>
+                  <button class="btn-primary btn-inline-action" style="width:100%; margin:12px 0 6px 0; padding:10px;" id="btn-change-wifi">Change Network Node</button>
+              </div>
+
+              <div class="section-divider-title">Kit Remain Time</div>
+              <div class="card" style="padding:10px 20px;">
+                  <ul class="info-list">
+                      <li><span>Hair Kit</span><strong id="tok-hair">-- min</strong></li>
+                      <li><span>Fat Kit</span><strong id="tok-fat">-- min</strong></li>
+                      <li><span>Homo Kit</span><strong id="tok-homo">-- min</strong></li>
+                  </ul>
+              </div>
+
+              <div class="section-divider-title">Contact Us</div>
+              <div class="card" style="padding:10px 20px;">
+                  <ul class="info-list">
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div><strong>Atrin teb Inc.</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div><strong>medicalequipmentacademy@gmail.com</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div><strong>www.icell-graft.com</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></div><strong>+98 9128639057</strong></li>
+                      <li><div class="label-with-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div><div class="address-text">Unit 15i, floor 15th, Treata tower, Kharrazi HW, Tehran</div></li>
+                  </ul>
+              </div>
+          </section>
+
+          <section id="tab-settings" class="page-view"><div class="card"><h2>System Settings</h2><p style="color:var(--color-text-secondary); margin-top:10px; font-size:0.95rem;">Secured profile parameter setups.</p>
+            <div class="settings-row">
+              <span class="settings-row-label">Light Appearance</span>
+              <button class="ios-switch" id="theme-switch" role="switch" aria-checked="false" type="button"><span class="ios-switch-knob"></span></button>
+            </div>
+            <p style="margin-top:24px; font-size:0.72rem; color:var(--color-text-secondary); opacity:0.6;">Build: 2026-07-10-polish-v9</p></div></section>
+          <section id="tab-guide" class="page-view"><div class="card"><h2>Operational Guide</h2><p style="color:var(--color-text-secondary); margin-top:10px; font-size:0.95rem; line-height:1.5;">Incubation guides setup.</p></div></section>
+      </main>
+
+      <nav class="bottom-nav" id="navBar">
+          <div class="liquid-pill" id="liquidPill"></div>
+          <button class="nav-item active" data-target="tab-main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Main</span></button>
+          <button class="nav-item" data-target="tab-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg><span>Info</span></button>
+          <button class="nav-item" data-target="tab-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span>Settings</span></button>
+          <button class="nav-item" data-target="tab-guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg><span>Guide</span></button>
+      </nav>
+  </div>
+<script>
+const APP_START_TIME = Date.now();
+const MIN_SPLASH_DURATION_MS = 3000; // keep splash visible at least this long, regardless of connection speed
+
+const State = {
+  mode: 'disconnected',
+  connected: false,
+  status: 'standby',
+  temperature: 0.0,
+  remainingTime: 0,
+  remainingMax: 3600,
+  tokensHair: 0,
+  tokensFat: 0,
+  tokensHomo: 0,
+  currentSSID: 'iCell',
+  theme: 'dark',
+  m1_active: false,
+  m2_active: false,
+  led_active: false,
+  heat_active: false
+};
+
+const DOM = {
+  splash: document.getElementById('splash-screen'),
+  toastContainer: document.getElementById('toast-container'),
+  navItems: document.querySelectorAll('.nav-item'),
+  pageViews: document.querySelectorAll('.page-view'),
+  pillWifi: document.getElementById('pill-wifi'),
+  txtWifi: document.getElementById('txt-wifi'),
+  gaugeProgress: document.getElementById('gauge-progress'),
+  lblTime: document.getElementById('lbl-time'),
+  lblTemp: document.getElementById('lbl-temp'),
+  lblTokens: document.getElementById('lbl-tokens'),
+  tokenLockBadge: document.getElementById('token-lock-badge'),
+  modeSelectionView: document.getElementById('mode-selection-view'),
+  monitoringView: document.getElementById('monitoring-view'),
+  lblKitTitle: document.getElementById('lbl-kit-title'),
+  fan: document.getElementById('fan-element'),
+  activeKitIcon: document.getElementById('active-kit-icon'),
+  activityIconWrap: document.getElementById('activity-icon-wrap'),
+  btnStatus: document.getElementById('btn-status'),
+  infoSSID: document.getElementById('info-ssid'),
+  tokHair: document.getElementById('tok-hair'),
+  tokFat: document.getElementById('tok-fat'),
+  tokHomo: document.getElementById('tok-homo'),
+  btnWifi: document.getElementById('btn-change-wifi'),
+  themeSwitch: document.getElementById('theme-switch')
+};
+
+const GAUGE_CIRCUMFERENCE = 478;
+let svgTicksArray = [];
+let socket = null;
+let heartbeatInterval = null;
+let missedHeartbeats = 0;
+
+// Soft Spring Navigation Pill Transition Controller
+function transitionPill(targetElement) {
+  const pill = document.getElementById('liquidPill');
+  if (!pill || !targetElement) return;
+  
+  const targetWidth = targetElement.offsetWidth;
+  const targetOffset = targetElement.offsetLeft;
+
+  const currentTransform = window.getComputedStyle(pill).transform;
+  let currentX = 0;
+  if (currentTransform !== 'none') {
+    const matrixValues = currentTransform.split('(')[1].split(')')[0].split(',');
+    currentX = parseFloat(matrixValues[4]);
+  }
+
+  const distance = (targetOffset - 8) - currentX;
+  
+  if (Math.abs(distance) > 5) {
+    const direction = Math.sign(distance);
+    const stretchAmount = Math.min(1.18, 1 + Math.abs(distance) / 600);
+    
+    pill.style.transformOrigin = direction > 0 ? "left center" : "right center";
+    pill.style.transform = `translateX(${targetOffset - 8}px) scaleX(${stretchAmount})`;
+    pill.style.width = `${targetWidth}px`;
+    
+    setTimeout(() => {
+      pill.style.transform = `translateX(${targetOffset - 8}px) scaleX(1)`;
+    }, 220);
+  } else {
+    pill.style.width = `${targetWidth}px`;
+    pill.style.transform = `translateX(${targetOffset - 8}px) scaleX(1)`;
+  }
+}
+
+function initRouter() {
+    DOM.navItems.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const currentBtn = e.currentTarget;
+            const targetId = currentBtn.getAttribute('data-target');
+            // If we're already on the Main tab and we click it again while in monitoring view, go back to mosaic
+            if (targetId === 'tab-main' && currentBtn.classList.contains('active')) {
+                // Only go back if we are in monitoring view (i.e., a kit is selected)
+                if (demoSelectedMode !== null) {
+                    selectDemoKit(null);
+                }
+                // If already in mosaic, do nothing
+                return;
+            }
+            // Normal tab switching
+            DOM.navItems.forEach(b => b.classList.remove('active'));
+            currentBtn.classList.add('active');
+            
+            // Trigger Springy Navigation Pill
+            transitionPill(currentBtn);
+            
+            DOM.pageViews.forEach(view => {
+                if(view.id === targetId) { view.classList.add('active-view'); }
+                else { view.classList.remove('active-view'); }
+            });
+        });
+    });
+    if(DOM.btnWifi) { DOM.btnWifi.addEventListener('click', () => { showToast("Routing to ESP32 captive portal..."); }); }
+
+    if (DOM.themeSwitch) {
+        DOM.themeSwitch.addEventListener('click', () => {
+            const goingLight = !DOM.themeSwitch.classList.contains('on');
+            const newTheme = goingLight ? 'light' : 'dark';
+            State.theme = newTheme;
+            applyTheme(newTheme);
+            emitDeviceControl({ setTheme: newTheme });
+        });
+    }
+
+    // --- Mode Selection Mosaic: tap a kit -> go straight to its
+    // operation page, starting STOPPED (no auto-run, no confirmation --
+    // this is the standalone demo's interaction model). ---
+    document.querySelectorAll('.mosaic-tile').forEach(tile => {
+        tile.addEventListener('click', () => {
+            const pageNum = parseInt(tile.dataset.page, 10);
+            selectDemoKit(PAGE_NUM_TO_MODE[pageNum]);
+        });
+    });
+
+    // Kit title ("home"): always stops and returns to the mosaic
+    // immediately, no confirmation toast.
+    if (DOM.lblKitTitle) {
+        DOM.lblKitTitle.addEventListener('click', () => {
+            selectDemoKit(null);
+        });
+    }
+
+    // Big status button: toggles running/stopped directly, no
+    // confirmation toast.
+    if (DOM.btnStatus) {
+        DOM.btnStatus.addEventListener('click', () => {
+            demoRunning = !demoRunning;
+            if (demoRunning) demoRemainTime = DEMO_REMAIN_MAX;
+            renderDemoState();
+        });
+    }
+}
+
+// =====================================================================
+// MOSAIC ICONS -- direct image links + client-side caching
+// =====================================================================
+const KIT_ICONS = {
+    hairKit:   "https://cdn.imgurl.ir/uploads/b00569_H0.png",  // <-- iCell Hair Kit icon URL
+    fatKit:    "https://cdn.imgurl.ir/uploads/y80344_F0.png",  // <-- iCell Fat Kit icon URL
+    homoKit:   "https://cdn.imgurl.ir/uploads/t231592_G0.png",  // <-- iCell Homogenize Kit icon URL
+    photoL:    "https://cdn.imgurl.ir/uploads/y587773_P0.png",  // <-- iCell Photo Active 1 icon URL
+    photoM:    "https://cdn.imgurl.ir/uploads/t231592_G0.png",  // <-- iCell Photo Active 2 icon URL
+    biofiller: "https://cdn.imgurl.ir/uploads/b591168_Bio0.png",  // <-- iCell Bio Filler Kit icon URL
+};
+
+const ICON_CACHE_NAME = 'icell-mosaic-icons-v1';
+
+// Maps the mode string the ESP32 sends to the KIT_ICONS key, and to
+// which activity icon shows by default when nothing's currently active
+// (i.e. the kit's "primary" output, shown static/dim while stopped).
+const KIT_MODE_TO_ICON_KEY = {
+    'hair kit': 'hairKit', 'fat kit': 'fatKit', 'homo kit': 'homoKit',
+    'photo active 1': 'photoL', 'photo active 2': 'photoM', 'bio filler': 'biofiller'
+};
+const KIT_DEFAULT_ACTIVITY = {
+    hairKit: 'motor', fatKit: 'motor', homoKit: 'motor',
+    photoL: 'led', photoM: 'motor', biofiller: 'heat'
+};
+const ACTIVITY_ICON_SVG = {
+    motor: '<g class="motor-vector-group"><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"></path><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></g>',
+    led: '<path d="M9 18h6M10 22h4M15.09 14c.18-1 .48-1.62 1.14-2.34A6 6 0 1 0 8 12.4c.6.7.94 1.32 1.13 2.6"></path>',
+    heat: '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>'
+};
+
+async function loadIconCached(url, imgEl) {
+    if (!url) return; // placeholder not filled in yet -- leave as empty circle
+    try {
+        const cache = await caches.open(ICON_CACHE_NAME);
+        let response = await cache.match(url);
+        if (!response) {
+            response = await fetch(url, { mode: 'cors' });
+            if (response.ok) {
+                await cache.put(url, response.clone());
+            }
+        }
+        const blob = await response.blob();
+        imgEl.src = URL.createObjectURL(blob);
+    } catch (e) {
+        console.warn('Icon cache/fetch failed, falling back to direct load:', url, e);
+        imgEl.src = url; // still works even if Cache Storage/CORS fails -- just re-fetches each time
+    }
+}
+
+function initMosaicIcons() {
+    document.querySelectorAll('.mosaic-icon').forEach(img => {
+        const key = img.dataset.iconKey;
+        loadIconCached(KIT_ICONS[key], img);
+    });
+}
+
+function buildSvgGaugeTicks() {
+    const group = document.getElementById('svg-tick-container'); if(!group) return;
+    group.innerHTML = ''; svgTicksArray = [];
+    const radius = 96; const innerRadius = 89;
+    for (let i = 0; i < 60; i++) {
+        const angleRad = (i * 6) * (Math.PI / 180);
+        const x1 = 100 + radius * Math.cos(angleRad);
+        const y1 = 100 + radius * Math.sin(angleRad);
+        const x2 = 100 + innerRadius * Math.cos(angleRad);
+        const y2 = 100 + innerRadius * Math.sin(angleRad);
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", x1); line.setAttribute("y1", y1);
+        line.setAttribute("x2", x2); line.setAttribute("y2", y2);
+        line.setAttribute("class", "tick-line");
+        group.appendChild(line); svgTicksArray.push(line);
+    }
+}
+
+// --- Live Communication Management (WebSocket & Watchdog Engine) ---
+// =====================================================================
+// STANDALONE DEMO ENGINE
+// Replaces the real WebSocket connection entirely — there's no ESP32 to
+// connect to in this standalone file. Unlike the ESP32's own DEMO_MODE
+// (which auto-cycles through all 7 states on a timer), this is driven
+// entirely by taps: pick a kit from the mosaic -> its operation page
+// opens STOPPED -> the status button starts/stops it directly, no
+// confirmation -> the kit title always goes straight back to the
+// mosaic, also no confirmation.
+// =====================================================================
+const DEMO_REMAIN_MAX = 300; // 5 minutes
+
+const PAGE_NUM_TO_MODE = {
+    2: 'hair kit', 3: 'fat kit', 4: 'homo kit',
+    6: 'photo active 1', 7: 'photo active 2', 8: 'bio filler'
+};
+const KIT_OUTPUT_MAP = {
+    'hair kit':        { m1: true,  m2: false, led: false, heat: false },
+    'fat kit':         { m1: true,  m2: false, led: false, heat: false },
+    'homo kit':        { m1: false, m2: true,  led: false, heat: false },
+    'photo active 1':  { m1: false, m2: false, led: true,  heat: false },
+    'photo active 2':  { m1: false, m2: true,  led: true,  heat: false },
+    'bio filler':      { m1: false, m2: false, led: false, heat: true  },
+};
+
+let demoSelectedMode = null; // null = mosaic shown; else one of the 6 kit strings
+let demoRunning = false;
+let demoRemainTime = DEMO_REMAIN_MAX;
+
+// Tap a mosaic tile (mode = kit string) or the kit title / "home" (mode
+// = null) -- always lands STOPPED, no confirmation either direction.
+function selectDemoKit(mode) {
+    demoSelectedMode = mode;
+    demoRunning = false;
+    demoRemainTime = DEMO_REMAIN_MAX;
+    renderDemoState();
+}
+
+function renderDemoState() {
+    const outputs = demoSelectedMode ? KIT_OUTPUT_MAP[demoSelectedMode] : null;
+
+    State.mode = demoSelectedMode || 'local link';
+    State.status = demoRunning ? 'running' : 'standby';
+    State.remainingTime = demoRemainTime;
+    State.remainingMax = DEMO_REMAIN_MAX;
+    State.temperature = 24.0 + (Math.random() * 4);
+    State.currentSSID = "iCell-Demo";
+    State.m1_active = demoRunning && outputs ? outputs.m1 : false;
+    State.m2_active = demoRunning && outputs ? outputs.m2 : false;
+    State.led_active = demoRunning && outputs ? outputs.led : false;
+    State.heat_active = demoRunning && outputs ? outputs.heat : false;
+
+    const minutesRemaining = Math.floor(demoRemainTime / 60);
+    State.tokensHair = (demoRunning && demoSelectedMode === 'hair kit') ? minutesRemaining : 0;
+    State.tokensFat  = (demoRunning && demoSelectedMode === 'fat kit')  ? minutesRemaining : 0;
+    State.tokensHomo = (demoRunning && demoSelectedMode === 'homo kit') ? minutesRemaining : 0;
+
+    render(State);
+}
+
+function runStandaloneDemo() {
+    State.connected = true;
+    hideSplashScreen();
+    showToast("Standalone Demo — no ESP32 needed");
+
+    renderDemoState();
+
+    // Countdown tick -- only moves while a kit is actually running,
+    // wraps back to the full 5 minutes if it ever hits zero.
+    setInterval(() => {
+        if (demoRunning) {
+            demoRemainTime--;
+            if (demoRemainTime <= 0) demoRemainTime = DEMO_REMAIN_MAX;
+        }
+        renderDemoState();
+    }, 1000);
+}
+
+// Commands (mosaic taps, status button, theme switch) have nothing to
+// actually send to in standalone mode — theme still applies instantly
+// client-side (see the click handler), everything else just logs.
+function emitDeviceControl(payload) {
+    console.log("[Standalone Demo] Not sent (no hardware attached):", payload);
+}
+
+function hideSplashScreen() {
+    if (!DOM.splash) return;
+    const elapsed = Date.now() - APP_START_TIME;
+    const remaining = Math.max(0, MIN_SPLASH_DURATION_MS - elapsed);
+    setTimeout(() => {
+        DOM.splash.style.opacity = '0';
+        setTimeout(() => DOM.splash.remove(), 500);
+    }, remaining);
+}
+
+// --- Render Core Engine ---
+function applyTheme(theme) {
+    const isLight = theme === 'light';
+    document.documentElement.classList.toggle('light-theme', isLight);
+    if (DOM.themeSwitch) {
+        DOM.themeSwitch.classList.toggle('on', isLight);
+        DOM.themeSwitch.setAttribute('aria-checked', isLight ? 'true' : 'false');
+    }
+}
+
+function render(state) {
+    applyTheme(state.theme);
+
+    const KIT_MODE_STRINGS = ['hair kit', 'fat kit', 'homo kit', 'photo active 1', 'photo active 2', 'bio filler'];
+    const showMosaic = !KIT_MODE_STRINGS.includes(state.mode);
+    if (DOM.modeSelectionView) DOM.modeSelectionView.classList.toggle('active-subview', showMosaic);
+    if (DOM.monitoringView) DOM.monitoringView.classList.toggle('active-subview', !showMosaic);
+
+    // Setup Connection Status Pill
+    if (state.connected) {
+        DOM.pillWifi.classList.add('highlighted');
+        DOM.txtWifi.textContent = "Connected";
+    } else {
+        DOM.pillWifi.classList.remove('highlighted');
+        DOM.txtWifi.textContent = "Disconnected";
+    }
+
+    // Big status button -- shows AND changes current run state
+    if (DOM.btnStatus) {
+        DOM.btnStatus.classList.toggle('running', state.connected && state.status === 'running');
+    }
+
+    DOM.lblKitTitle.textContent = state.mode.toUpperCase();
+
+    // Gauge Progress Computations
+    const maxVal = state.remainingMax > 0 ? state.remainingMax : 3600;
+    const offset = GAUGE_CIRCUMFERENCE - ((state.remainingTime / maxVal) * GAUGE_CIRCUMFERENCE);
+    DOM.gaugeProgress.style.strokeDashoffset = state.connected ? offset : GAUGE_CIRCUMFERENCE;
+
+    const mins = Math.floor(state.remainingTime / 60).toString().padStart(2, '0');
+    const secs = (state.remainingTime % 60).toString().padStart(2, '0');
+    DOM.lblTime.textContent = state.connected ? `${mins}:${secs}` : "00:00";
+
+    const currentSecondIndex = (60 - (state.remainingTime % 60)) % 60;
+    const TRAIL_LENGTH = 8; // ticks behind the sweeping head that fade out
+    svgTicksArray.forEach((tick, idx) => {
+        tick.classList.remove('active', 'trailing');
+        tick.style.opacity = '';
+        tick.style.filter = '';
+        if (!state.connected || state.status !== 'running') return;
+        // distance behind the sweeping head, wrapping around the 60-tick ring
+        const behind = (currentSecondIndex - idx + 60) % 60;
+        if (behind === 0) {
+            tick.classList.add('active'); // bright comet head, full glow via CSS
+        } else if (behind <= TRAIL_LENGTH) {
+            const fade = 1 - (behind / (TRAIL_LENGTH + 1)); // 1 -> ~0.1 trailing off
+            tick.classList.add('trailing');
+            tick.style.opacity = (0.15 + fade * 0.6).toFixed(2);
+            tick.style.filter = `drop-shadow(0 0 ${(fade * 3).toFixed(1)}px var(--color-accent-glow))`;
+        }
+    });
+
+    DOM.lblTemp.textContent = state.connected ? Math.round(state.temperature) : "--";
+    DOM.lblTemp.classList.toggle('metric-loading', !state.connected);
+
+    // Cooling Fan: Rules bound to stand-by confirmation states explicitly
+    if(state.connected && state.status === 'standby') {
+        DOM.fan.classList.add('spinning');
+    } else {
+        DOM.fan.classList.remove('spinning');
+    }
+
+    let contextualTokenMinutes = 0;
+    if(state.mode === 'hair kit') contextualTokenMinutes = state.tokensHair;
+    else if(state.mode === 'fat kit') contextualTokenMinutes = state.tokensFat;
+    else if(state.mode === 'homo kit') contextualTokenMinutes = state.tokensHomo;
+    const tokensReady = state.connected && contextualTokenMinutes > 0;
+    DOM.lblTokens.textContent = tokensReady ? contextualTokenMinutes : "--";
+    DOM.lblTokens.classList.toggle('metric-loading', !tokensReady);
+
+    if (DOM.tokenLockBadge) {
+        DOM.tokenLockBadge.classList.toggle('unlocked', tokensReady);
+        DOM.tokenLockBadge.classList.toggle('locked', !tokensReady);
+    }
+
+    // Active-kit box: the selected kit's own icon, plus a small activity
+    // icon (spinning motor / glowing bulb / pulsing heat) that's dim and
+    // static when stopped, animated+glowing when that output is live.
+    const kitKey = KIT_MODE_TO_ICON_KEY[state.mode];
+    if (DOM.activeKitIcon && kitKey && DOM.activeKitIcon.dataset.loadedKey !== kitKey) {
+        loadIconCached(KIT_ICONS[kitKey], DOM.activeKitIcon);
+        DOM.activeKitIcon.dataset.loadedKey = kitKey;
+    }
+    if (DOM.activityIconWrap) {
+        let activityType = null, isActive = false;
+        if (state.connected) {
+            if (state.m1_active || state.m2_active)  { activityType = 'motor'; isActive = true; }
+            else if (state.led_active)               { activityType = 'led';   isActive = true; }
+            else if (state.heat_active)              { activityType = 'heat';  isActive = true; }
+            else if (kitKey)                         { activityType = KIT_DEFAULT_ACTIVITY[kitKey]; isActive = false; }
+        }
+        DOM.activityIconWrap.innerHTML = activityType
+            ? `<svg viewBox="0 0 24 24">${ACTIVITY_ICON_SVG[activityType]}</svg>`
+            : '';
+        DOM.activityIconWrap.classList.toggle('active', isActive);
+        DOM.activityIconWrap.classList.toggle('pulse', activityType === 'heat');
+    }
+
+    if(DOM.infoSSID) DOM.infoSSID.textContent = state.connected ? state.currentSSID : "None";
+    if(DOM.tokHair) DOM.tokHair.textContent = state.connected ? `${state.tokensHair} min` : "-- min";
+    if(DOM.tokFat) DOM.tokFat.textContent = state.connected ? `${state.tokensFat} min` : "-- min";
+    if(DOM.tokHomo) DOM.tokHomo.textContent = state.connected ? `${state.tokensHomo} min` : "-- min";
+    
+    // Ensure navigation indicator aligns to correct location initially on state renders
+    setTimeout(() => {
+        const activeNav = document.querySelector('.nav-item.active');
+        if (activeNav) {
+            const pill = document.getElementById('liquidPill');
+            if (pill) {
+                pill.style.width = `${activeNav.offsetWidth}px`;
+                pill.style.transform = `translateX(${activeNav.offsetLeft - 8}px)`;
+            }
+        }
+    }, 50);
+}
+
+function showToast(msg) {
+    const entry = document.createElement('div'); entry.className = 'toast'; entry.innerText = msg; DOM.toastContainer.appendChild(entry);
+    entry.offsetHeight; entry.classList.add('show');
+    setTimeout(() => { entry.classList.remove('show'); setTimeout(() => entry.remove(), 600); }, 3500);
+}
+
+// Confirmation toast with OK/Cancel — unlike showToast(), this does NOT
+// auto-dismiss; it waits for an explicit choice. onConfirm runs only if
+// the user taps OK; Cancel (or tapping outside, if you add that later)
+// just dismisses it.
+function showConfirmToast(message, onConfirm) {
+    const entry = document.createElement('div');
+    entry.className = 'toast confirm-toast';
+
+    const msgEl = document.createElement('div');
+    msgEl.className = 'confirm-toast-msg';
+    msgEl.textContent = message;
+
+    const btnRow = document.createElement('div');
+    btnRow.className = 'confirm-toast-buttons';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'confirm-toast-btn confirm-toast-cancel';
+    cancelBtn.textContent = 'Cancel';
+
+    const okBtn = document.createElement('button');
+    okBtn.type = 'button';
+    okBtn.className = 'confirm-toast-btn confirm-toast-ok';
+    okBtn.textContent = 'OK';
+
+    function dismiss() {
+        entry.classList.remove('show');
+        setTimeout(() => entry.remove(), 300);
+    }
+    cancelBtn.addEventListener('click', dismiss);
+    okBtn.addEventListener('click', () => { dismiss(); onConfirm(); });
+
+    btnRow.appendChild(cancelBtn);
+    btnRow.appendChild(okBtn);
+    entry.appendChild(msgEl);
+    entry.appendChild(btnRow);
+    DOM.toastContainer.appendChild(entry);
+    entry.offsetHeight;
+    entry.classList.add('show');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    buildSvgGaugeTicks();
+    initRouter();
+    initMosaicIcons();
+    render(State);
+    runStandaloneDemo();
+    fixShellHeight();
+    
+    // Position Liquid Pill on first load
+    setTimeout(() => {
+        const activeNav = document.querySelector('.nav-item.active');
+        if (activeNav) {
+            const pill = document.getElementById('liquidPill');
+            if (pill) {
+                pill.style.width = `${activeNav.offsetWidth}px`;
+                pill.style.transform = `translateX(${activeNav.offsetLeft - 8}px)`;
+            }
+        }
+    }, 150);
+});
+
+function isStandalone() {
+    return (window.navigator.standalone === true) ||
+           (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+}
+
+function fixShellHeight() {
+    if (isStandalone()) {
+        document.documentElement.style.removeProperty('--app-height');
+        return;
+    }
+    var vh = (window.visualViewport && window.visualViewport.height)
+        ? window.visualViewport.height
+        : window.visualViewport.height;
+    document.documentElement.style.setProperty('--app-height', vh + 'px');
+}
+
+fixShellHeight();
+window.addEventListener('resize', fixShellHeight);
+window.addEventListener('orientationchange', fixShellHeight);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', fixShellHeight);
+    window.visualViewport.addEventListener('scroll', fixShellHeight);
+}
+
+window.addEventListener('load', () => setTimeout(fixShellHeight, 300));
+window.addEventListener('orientationchange', () => setTimeout(fixShellHeight, 300));
+
+// Dynamic resizing support for visual navigation pill alignment
+window.addEventListener('resize', () => {
+  const activeNav = document.querySelector('.nav-item.active');
+  if (activeNav) {
+    const pill = document.getElementById('liquidPill');
+    if (pill) {
+        pill.style.width = `${activeNav.offsetWidth}px`;
+        pill.style.transform = `translateX(${activeNav.offsetLeft - 8}px)`;
+    }
+  }
+});
+</script>
+</body>
+</html>
