@@ -1,0 +1,9 @@
+{
+  "name": "iCell Embedded Dashboard",
+  "short_name": "iCell",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0d12",
+  "theme_color": "#0d0d12"
+}
